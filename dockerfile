@@ -1,35 +1,48 @@
-FROM library/centos
+FROM library/ubuntu
 MAINTAINER 74th<site@j74th.com>
 
 # http://blog.redmine.jp/articles/3_2/install/centos/
 
-# yum
-RUN yum -y groupinstall "Development Tools"
-RUN yum -y install openssl-devel readline-devel zlib-devel curl-devel libyaml
-RUN yum -y install openssl-devel readline-devel zlib-devel curl-devel libyaml-devel libffi-devel
-RUN yum -y install postgresql-server postgresql-devel
-RUN yum -y install httpd httpd-devel
-RUN yum -y install ImageMagick ImageMagick-devel ipa-pgothic-fonts
+RUN locale-gen ja_JP.UTF-8
 
-# ruby
-ADD https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.3.tar.gz /root/
-WORKDIR /root/
-RUN tar xvf ruby-2.2.3.tar.gz
-WORKDIR /root/ruby-2.2.3
-RUN sh -c ./configure --disable-install-doc
-RUN make
-RUN make install
-RUN gem install bundler --no-rdoc --no-ri
-
-# postgresql
-# TODO password
-RUN sudo -u postgres createuser -P redmine
-RUN sudo -u postgres createdb -E UTF-8 -l ja_JP.UTF-8 -O redmine -T template0
+RUN apt-get update
+RUN apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev
+RUN apt-get install -y postgresql postgresql-server-dev-9.3
+RUN apt-get install -y apache2-mpm-worker apache2-threaded-dev libapr1-dev libaprutil1-dev
+RUN apt-get install -y imagemagick libmagick++-dev fonts-takao-pgothic
+RUN apt-get install -y subversion git
+RUN apt-get install -y software-properties-common
+RUN apt-add-repository ppa:brightbox/ruby-ng
+RUN apt-get update
+RUN apt-get install -y ruby2.2
+RUN apt-get install -y ruby2.2-dev
+RUN gem install bundler
 
 # Redmine
 RUN svn co http://svn.redmine.org/redmine/branches/3.2-stable /var/lib/redmine
-ADD databade.yml /var/lib/redmine
-ADD configuration.yml /var/lib/redmine
+ADD config/* /var/lib/redmine/config/
+
+# postgresql
+ADD createdatabase.sh /root/
+RUN sh /root/createdatabase.sh
 
 WORKDIR /var/lib/redmine
-RUN bundle install --without development test --path vendor/bundle
+RUN bundle install --path vendor/bundle
+ADD rake.sh /var/lib/redmine/
+RUN sh /var/lib/redmine/rake.sh
+# RUN sudo -u www-data bundle exec rake generate_secret_token
+# RUN sudo -u www-data RAILS_ENV=production bundle exec rake db:migrate
+# RUN sudo -u www-data RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
+RUN gem install passenger --no-rdoc --no-ri
+RUN passenger-install-apache2-module --auto
+
+# apache2
+ADD apache2/redmine.conf /etc/apache2/conf-available/
+RUN passenger-install-apache2-module --snippet >> /etc/apache2/conf-available/redmine.conf
+RUN sed -i -e 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/lib\/redmine\/public/g' /etc/apache2/sites-enabled/000-default.conf
+RUN a2enconf redmine
+RUN apache2ctl configtest
+EXPOSE 80
+ADD entrypoint.sh /root/
+WORKDIR /root/
+ENTRYPOINT sh /root/entrypoint.sh
