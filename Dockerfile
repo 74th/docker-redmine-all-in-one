@@ -37,12 +37,17 @@ RUN gem install passenger --no-rdoc --no-ri
 RUN passenger-install-apache2-module --auto
 
 # apache2
+RUN apt-get install libapache2-svn
 ADD apache2/redmine.conf /etc/apache2/conf-available/
 RUN passenger-install-apache2-module --snippet >> /etc/apache2/conf-available/redmine.conf
 RUN sed -i -e 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/lib\/redmine\/public/g' /etc/apache2/sites-enabled/000-default.conf
 RUN a2enconf redmine
 RUN apache2ctl configtest
+
 EXPOSE 80
 ADD entrypoint.sh /root/
 WORKDIR /root/
+
+# svn
+
 ENTRYPOINT sh /root/entrypoint.sh
