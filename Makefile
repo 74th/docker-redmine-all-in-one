@@ -1,5 +1,8 @@
 build:
 	docker build -t 74th/redmine-all-in-one .
+rebuild:
+	docker build --no-cache=true -t 74th/redmine-all-in-one .
+rebuild:
 run:
 	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one
 rm:

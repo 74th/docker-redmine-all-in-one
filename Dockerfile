@@ -19,7 +19,7 @@ RUN apt-get install -y ruby2.2-dev
 RUN gem install bundler
 
 # Redmine
-RUN svn co http://svn.redmine.org/redmine/branches/2.6-stable /var/lib/redmine
+RUN svn co http://svn.redmine.org/redmine/branches/3.2-stable/ /var/lib/redmine
 ADD config/* /var/lib/redmine/config/
 
 # postgresql
@@ -29,10 +29,13 @@ RUN sh /root/createdatabase.sh
 # sudo -u postgres createdb -E UTF-8 -l ja_JP.UTF-8 -O redmine -T template0 redmine
 
 # redmine
+WORKDIR /var/lib/redmine
 
 # backlog plugin
 # RUN git clone https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
-WORKDIR /var/lib/redmine
+
+# scm plugin
+RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/redmine/plugins/redmine_scm
 RUN bundle install --path vendor/bundle
 ADD rake.sh /var/lib/redmine/
 RUN sh /var/lib/redmine/rake.sh
@@ -57,6 +60,10 @@ RUN chown www-data:www-data /var/lib/redmine/log/
 # repository
 RUN mkdir /var/lib/svn/
 RUN chown -R www-data:www-data /var/lib/svn/ /var/lib/git/
+
+RUN chmod -R 777 /var/lib/redmine/
+
+# ginalize
 EXPOSE 80
 ADD entrypoint.sh /root/
 WORKDIR /root/
