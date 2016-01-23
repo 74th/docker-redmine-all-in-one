@@ -7,3 +7,4 @@ production:
       domain: "example.com"
 
   rmagick_font_path: /usr/share/fonts/ipa-pgothic/ipagp.ttf
+  secret_token: 'change it to a long random string'
