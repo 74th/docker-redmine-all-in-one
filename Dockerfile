@@ -43,8 +43,12 @@ WORKDIR /var/lib/redmine
 #RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
 # scm plugin
-RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/redmine/plugins/redmine_scm
-#RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
+
+# not work on 3.2
+#RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/redmine/plugins/redmine_scm
+
+# work on 3.2
+RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
 
 # git hosting
 #RUN git clone -b 0.2.4 https://github.com/jbox-web/redmine_bootstrap_kit.git /var/lib/redmine/plugins/redmine_bootstrap_kit

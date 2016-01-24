@@ -4,7 +4,7 @@ no need another steps to use Redmine with docker
 
 ## feature
 
-* hosted svn repository
+* hosted subversion repository
 * hosted git repository
 
 ## included plugins
@@ -14,3 +14,7 @@ no need another steps to use Redmine with docker
 * [Issue template](http://www.redmine.org/plugins/issue_templates)
 * [Code Review](http://www.redmine.org/plugins/redmine_code_review)
 * [People](http://www.redmine.org/plugins/redmine_code_review)
+
+## problem
+
+* subversion is able to be created at only creating a project
