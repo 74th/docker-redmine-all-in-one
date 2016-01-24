@@ -51,6 +51,7 @@ RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/re
 #RUN git clone -b 1.2.0 https://github.com/jbox-web/redmine_git_hosting.git /var/lib/redmine/plugins/redmine_git_hosting
 
 RUN bundle install  --without development test --path vendor/bundle
+RUN chown -R www-data:www-data /var/lib/redmine/
 ADD rake.sh /var/lib/redmine/
 RUN sh /var/lib/redmine/rake.sh
 # sudo -u www-data bundle exec rake generate_secret_token
@@ -72,7 +73,6 @@ RUN chown www-data:www-data /var/lib/redmine/log/
 RUN mkdir /var/lib/svn/
 RUN chown -R www-data:www-data /var/lib/svn/ /var/lib/git/
 
-RUN chown -R www-data:www-data /var/lib/redmine/
 
 # ginalize
 EXPOSE 80
