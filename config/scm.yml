@@ -3,6 +3,7 @@ production:
   auto_create: force
   max_repos: 0
   allow_add_local: true
+  post_create: /var/lib/redmine/scm-post-create.sh
   svn:
     path: /var/lib/svn
     svnadmin: /usr/bin/svnadmin

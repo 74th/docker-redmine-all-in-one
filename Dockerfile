@@ -37,22 +37,17 @@ RUN sh /root/createdatabase.sh
 WORKDIR /var/lib/redmine
 
 # backlog plugin
-#RUN git clone -b stable https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
-#RUN git clone -b feature/redmine3 https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
-#RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.1"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
-#RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
+RUN git clone -b feature/redmine3 https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
+RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.1"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
+RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
 # scm plugin
-
 # not work on 3.2
 #RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/redmine/plugins/redmine_scm
-
 # work on 3.2
 RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
+ADD scm-post-create.sh /var/lib/redmine/
 
-# git hosting
-#RUN git clone -b 0.2.4 https://github.com/jbox-web/redmine_bootstrap_kit.git /var/lib/redmine/plugins/redmine_bootstrap_kit
-#RUN git clone -b 1.2.0 https://github.com/jbox-web/redmine_git_hosting.git /var/lib/redmine/plugins/redmine_git_hosting
 
 RUN bundle install  --without development test --path vendor/bundle
 RUN chown -R www-data:www-data /var/lib/redmine/

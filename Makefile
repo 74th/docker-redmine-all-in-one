@@ -2,7 +2,6 @@ build:
 	docker build -t 74th/redmine-all-in-one .
 rebuild:
 	docker build --no-cache=true -t 74th/redmine-all-in-one .
-rebuild:
 run:
 	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one
 rm:
@@ -10,6 +9,8 @@ rm:
 rerun:
 	docker rm -f redmine
 	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one
+push:
+	docker push 74th/redmine-all-in-one
 bash:
 	docker exec -it redmine bash
 pushconf:
