@@ -13,6 +13,7 @@ Include SVN & Git hosting
 
 * [SCM Creator](http://www.redmine.org/plugins/redmine_scm)
 * [Redmine Backlogs](http://www.redminebacklogs.net/)
+* [Issue template](http://www.redmine.org/plugins/issue_templates)
 
 ## problem
 
@@ -20,6 +21,5 @@ Include SVN & Git hosting
 
 ## next...
 
-* [Issue template](http://www.redmine.org/plugins/issue_templates)
 * [Code Review](http://www.redmine.org/plugins/redmine_code_review)
 * [People](http://www.redmine.org/plugins/redmine_code_review)

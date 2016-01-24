@@ -48,6 +48,9 @@ RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_bac
 RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
 ADD scm-post-create.sh /var/lib/redmine/
 
+# Issue Template
+RUN apt-get install -y mercurial
+RUN hg clone https://bitbucket.org/akiko_pusu/redmine_issue_templates /var/lib/redmine/plugins/redmine_issue_templates
 
 RUN bundle install  --without development test --path vendor/bundle
 RUN chown -R www-data:www-data /var/lib/redmine/
