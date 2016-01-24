@@ -6,18 +6,21 @@ MAINTAINER 74th<site@j74th.com>
 RUN locale-gen ja_JP.UTF-8
 
 RUN apt-get update
-RUN apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update
 RUN apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev
 RUN apt-get install -y postgresql postgresql-server-dev-9.3
 RUN apt-get install -y apache2-mpm-worker apache2-threaded-dev libapr1-dev libaprutil1-dev apache2-utils
 RUN apt-get install -y imagemagick libmagick++-dev fonts-takao-pgothic
 RUN apt-get install -y subversion git libapache2-svn gitweb
 RUN apt-get install -y software-properties-common
+RUN apt-add-repository ppa:brightbox/ruby-ng
+RUN apt-get update
 RUN apt-get install -y ruby2.2
 RUN apt-get install -y ruby2.2-dev
-RUN apt-get install libssh2-1 libssh2-1-dev cmake libgpg-error-dev
+RUN apt-get install -y libssh2-1 libssh2-1-dev cmake libgpg-error-dev
 RUN gem install bundler
+
+RUN gem install passenger --no-rdoc --no-ri
+RUN passenger-install-apache2-module --auto
 
 # Redmine
 RUN svn co http://svn.redmine.org/redmine/branches/3.2-stable/ /var/lib/redmine
@@ -55,8 +58,6 @@ RUN sh /var/lib/redmine/rake.sh
 # sudo -u www-data RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
 # rake redmine:plugins:migrate RAILS_ENV=production
 #
-RUN gem install passenger --no-rdoc --no-ri
-RUN passenger-install-apache2-module --auto
 
 # apache2
 ADD apache2/conf-available/redmine.conf /etc/apache2/conf-available/
