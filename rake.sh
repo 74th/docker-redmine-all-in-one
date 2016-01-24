@@ -10,4 +10,6 @@ sudo -u www-data RAILS_ENV=production bundle exec rake db:migrate
 sudo -u www-data RAILS_ENV=production bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_scm
 sudo -u www-data RAILS_ENV=production bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_backlogs
 sudo -u www-data RAILS_ENV=production bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_issue_templates
+sudo -u www-data RAILS_ENV=production bundle exec rake redmine:plugins:migrate RAILS_ENV=production NAME=redmine_code_review
+
 service postgresql stop

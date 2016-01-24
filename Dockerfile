@@ -26,18 +26,24 @@ RUN svn co http://svn.redmine.org/redmine/branches/3.2-stable/ /var/lib/redmine
 ADD config/* /var/lib/redmine/config/
 WORKDIR /var/lib/redmine
 
-# backlog plugin
+# redmine backlogs
 RUN git clone -b feature/redmine3 https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
 RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.1"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
-# scm plugin
+# scm creator
 RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
 ADD scm-post-create.sh /var/lib/redmine/
 
-# Issue Template
+# issue template
 RUN apt-get install -y mercurial
 RUN hg clone https://bitbucket.org/akiko_pusu/redmine_issue_templates /var/lib/redmine/plugins/redmine_issue_templates
+
+# code review
+RUN hg clone https://bitbucket.org/haru_iida/redmine_code_review /var/lib/redmine/plugins/redmine_code_review
+
+# 
+
 
 # bundle and rake
 RUN bundle install  --without development test --path vendor/bundle
