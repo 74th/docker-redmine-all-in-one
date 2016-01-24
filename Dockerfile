@@ -42,9 +42,6 @@ RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.1"/g' /var/lib/redmi
 RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
 # scm plugin
-# not work on 3.2
-#RUN svn export -r 142 http://subversion.andriylesyuk.com/scm-creator /var/lib/redmine/plugins/redmine_scm
-# work on 3.2
 RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
 ADD scm-post-create.sh /var/lib/redmine/
 
@@ -56,11 +53,6 @@ RUN bundle install  --without development test --path vendor/bundle
 RUN chown -R www-data:www-data /var/lib/redmine/
 ADD rake.sh /var/lib/redmine/
 RUN sh /var/lib/redmine/rake.sh
-# sudo -u www-data bundle exec rake generate_secret_token
-# sudo -u www-data RAILS_ENV=production bundle exec rake db:migrate
-# sudo -u www-data RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
-# rake redmine:plugins:migrate RAILS_ENV=production
-#
 
 # apache2
 ADD apache2/conf-available/redmine.conf /etc/apache2/conf-available/
@@ -70,14 +62,13 @@ RUN passenger-install-apache2-module --snippet >> /etc/apache2/conf-available/re
 RUN a2enconf redmine
 RUN a2enmod cgi alias env
 RUN apache2ctl configtest
-RUN chown www-data:www-data /var/lib/redmine/log/
+
 # repository
 RUN mkdir /var/lib/svn/
 RUN chown -R www-data:www-data /var/lib/svn/ /var/lib/git/
-
+VOLUME /var/lib/svn/ /var/lib/git/
 
 # ginalize
 EXPOSE 80
 ADD entrypoint.sh /root/
-WORKDIR /root/
 ENTRYPOINT sh /root/entrypoint.sh
