@@ -28,13 +28,15 @@ docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-
     * https://github.com/backlogs/redmine_backlogs
 * [Issue template](http://www.redmine.org/plugins/issue_templates) (GPLv2)
 * [Code Review](http://www.redmine.org/plugins/redmine_code_review) (GPVv2)
+* [Clipboard image paste](https://github.com/peclik/clipboard_image_paste)
 
 ## problem
 
 * subversion is able to be created at only creating a project
 * need a step for setup backlogs 
 
-## next...
+## notes
 
-* [People](http://www.redmine.org/plugins/redmine_code_review)
+Repositories and other created files are not plased in a volume. I think  when you want to make a backup, you can use ```docker export containername > backup.tar```  and ```docker import backup.tar```.
 
+I'm not an expert on RoR and redmine. So don't have a plan to prepare a way to upgrage Redmine in a container. 
