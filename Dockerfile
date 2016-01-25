@@ -1,10 +1,6 @@
 FROM library/ubuntu:14.04.3
 MAINTAINER 74th<site@j74th.com>
 
-# http://blog.redmine.jp/articles/3_2/install/ubuntu/
-
-RUN locale-gen ja_JP.UTF-8
-
 RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN apt-add-repository ppa:brightbox/ruby-ng
@@ -42,8 +38,8 @@ RUN hg clone https://bitbucket.org/akiko_pusu/redmine_issue_templates /var/lib/r
 # code review
 RUN hg clone https://bitbucket.org/haru_iida/redmine_code_review /var/lib/redmine/plugins/redmine_code_review
 
-# 
-
+# clipboard_image_paste
+RUN git clone https://github.com/peclik/clipboard_image_paste.git /var/lib/redmine/plugins/clipboard_image_paste
 
 # bundle and rake
 RUN bundle install  --without development test --path vendor/bundle
@@ -62,7 +58,6 @@ RUN a2enmod cgi alias env
 # repository
 RUN mkdir /var/lib/svn/
 RUN chown -R www-data:www-data /var/lib/svn/ /var/lib/git/
-VOLUME /var/lib/svn/ /var/lib/git/
 
 # ginalize
 EXPOSE 80
