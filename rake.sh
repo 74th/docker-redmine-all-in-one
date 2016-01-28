@@ -14,5 +14,6 @@ sudo -u www-data RAILS_ENV=production NAME=redmine_backlogs bundle exec rake red
 sudo -u www-data RAILS_ENV=production NAME=redmine_issue_templates bundle exec rake redmine:plugins:migrate
 sudo -u www-data RAILS_ENV=production NAME=redmine_code_review bundle exec rake redmine:plugins:migrate
 sudo -u www-data RAILS_ENV=production NAME=clipboard_image_paste bundle exec rake redmine:plugins:migrate
+sudo -u www-data RAILS_ENV=production NAME=redmine_xls_export bundle exec rake redmine:plugins:migrate
 
 service postgresql stop

@@ -41,6 +41,9 @@ RUN hg clone https://bitbucket.org/haru_iida/redmine_code_review /var/lib/redmin
 # clipboard_image_paste
 RUN git clone https://github.com/peclik/clipboard_image_paste.git /var/lib/redmine/plugins/clipboard_image_paste
 
+# excel export
+RUN git https://github.com/two-pack/redmine_xls_export.git /var/lib/redmine/redmine_xls_export
+
 # bundle and rake
 RUN bundle install  --without development test --path vendor/bundle
 RUN chown -R www-data:www-data /var/lib/redmine/
