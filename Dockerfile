@@ -24,7 +24,7 @@ WORKDIR /var/lib/redmine
 
 # redmine backlogs
 RUN git clone -b feature/redmine3 https://github.com/backlogs/redmine_backlogs.git /var/lib/redmine/plugins/redmine_backlogs
-RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.1"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
+RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.2"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 RUN sed -i -e 's/gem "capybara", "~> 1"//g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
 # scm creator
@@ -42,13 +42,14 @@ RUN hg clone https://bitbucket.org/haru_iida/redmine_code_review /var/lib/redmin
 RUN git clone https://github.com/peclik/clipboard_image_paste.git /var/lib/redmine/plugins/clipboard_image_paste
 
 # excel export
-RUN git https://github.com/two-pack/redmine_xls_export.git /var/lib/redmine/redmine_xls_export
+RUN git clone https://github.com/two-pack/redmine_xls_export.git /var/lib/redmine/plugins/redmine_xls_export
+RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.2"/g' /var/lib/redmine/plugins/redmine_xls_export/Gemfile
 
 # bundle and rake
 RUN bundle install  --without development test --path vendor/bundle
 RUN chown -R www-data:www-data /var/lib/redmine/
-ADD rake.sh /var/lib/redmine/
-RUN sh /var/lib/redmine/rake.sh
+ADD redmine/Makefile /var/lib/redmine/
+RUN make rake
 
 # apache2
 ADD apache2/conf-available/redmine.conf /etc/apache2/conf-available/
