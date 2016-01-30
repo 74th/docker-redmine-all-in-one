@@ -21,3 +21,8 @@ build_jp:
 rerun_jp:
 	docker rm -f redmine
 	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one:JP
+build_en:
+	docker build -t 74th/redmine-all-in-one:EN languages/EN/
+rerun_en:
+	docker rm -f redmine
+	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one:EN
