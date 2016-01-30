@@ -12,13 +12,28 @@ Including SVN & Git hosting!
 docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one
 ```
 
+* user: admin
+* password: admin
+
+### 日本語初期データ込み
+
+```
+docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:JP
+```
+
+### include English default data
+
+```
+docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:EN
+```
+
 ## feature
 
 * Redmine 3.2
 * hosted subversion repository : http://dockerhost/svn/
 * hosted git repository : http://dockerhost/git/
 * include database
-* include plugins for agile develop
+* include plugins for agile development
 
 ## included plugins
 
@@ -34,9 +49,10 @@ docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-
 
 * subversion is able to be created at only creating a project
 * need a step for setup backlogs 
+* subversion and git repositories don't have authentication
 
 ## notes
 
 Repositories and other created files are not plased in a volume. I think  when you want to make a backup, you can use ```docker export containername > backup.tar```  and ```docker import backup.tar```.
 
-I'm not an expert on RoR and redmine. So don't have a plan to prepare a way to upgrage Redmine in a container. 
+I'm not an expert on RoR and redmine. So don't have a plan to prepare a way to upgrage Redmine in a container.
