@@ -8,24 +8,18 @@ Including SVN & Git hosting!
 
 [Setup docker engine](https://docs.docker.com)
 
-```
-docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one
-```
+```docker run -d --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one```
 
 * user: admin
 * password: admin
 
 ### 日本語初期データ込み
 
-```
-docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:JP
-```
+```docker run -d --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:JP```
 
 ### include English default data
 
-```
-docker run --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:EN
-```
+```docker run -d --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:EN```
 
 ## feature
 
