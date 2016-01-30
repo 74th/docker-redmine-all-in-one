@@ -16,3 +16,8 @@ pushconf:
 push:
 	docker build --no-cache=true -t 74th/redmine-all-in-one .
 	docker push 74th/redmine-all-in-one
+build_jp:
+	docker build -t 74th/redmine-all-in-one:JP languages/JP/
+rerun_jp:
+	docker rm -f redmine
+	docker run -d -p 80:80 --name redmine 74th/redmine-all-in-one:JP
