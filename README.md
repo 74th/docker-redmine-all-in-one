@@ -4,6 +4,9 @@ No need another steps to use Redmine with docker!
 
 Including SVN & Git hosting!
 
+* https://hub.docker.com/r/74th/redmine-all-in-one/
+* https://github.com/74th/docker-redmine-all-in-one
+
 ## start
 
 [Setup docker engine](https://docs.docker.com)
