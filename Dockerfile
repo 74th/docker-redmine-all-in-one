@@ -5,14 +5,17 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN apt-add-repository ppa:brightbox/ruby-ng
 RUN apt-get update
+RUN echo "mysql-server-5.5 mysql-server/root_password password redmine" | debconf-set-selections
+RUN echo "mysql-server-5.5 mysql-server/root_password_again password redmine" | debconf-set-selections
 RUN apt-get install -y \
 	build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev \
-	postgresql postgresql-server-dev-9.3 \
+	mysql-server-5.5 \
 	apache2-mpm-worker apache2-threaded-dev libapr1-dev libaprutil1-dev apache2-utils \
 	imagemagick libmagick++-dev fonts-takao-pgothic \
 	subversion libapache2-svn \
 	git gitweb libssh2-1 libssh2-1-dev cmake libgpg-error-dev \
 	ruby2.2 ruby2.2-dev
+
 RUN gem install bundler
 RUN gem install passenger --no-rdoc --no-ri
 RUN passenger-install-apache2-module --auto
@@ -46,7 +49,8 @@ RUN git clone https://github.com/two-pack/redmine_xls_export.git /var/lib/redmin
 RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.2"/g' /var/lib/redmine/plugins/redmine_xls_export/Gemfile
 
 # bundle and rake
-RUN bundle install  --without development test --path vendor/bundle
+RUN bundle install --without development test --path vendor/bundle
+RUN bundle exec gem install mysql
 RUN chown -R www-data:www-data /var/lib/redmine/
 ADD redmine/Makefile /var/lib/redmine/
 RUN make rake
