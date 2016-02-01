@@ -1,6 +1,6 @@
 # redmine-all-in-one
 
-No need another steps to use Redmine with docker!
+No need other steps to use Redmine with docker!
 
 Including SVN & Git hosting!
 
