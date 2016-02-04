@@ -9,9 +9,11 @@ Including SVN & Git hosting!
 
 ## start
 
-[Setup docker engine](https://docs.docker.com)
+Setup docker engine https://docs.docker.com/engine/installation/
 
 ```docker run -d --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one```
+
+access http://dockerhost/
 
 * user: admin
 * password: admin
@@ -49,6 +51,6 @@ Including SVN & Git hosting!
 
 ## notes
 
-Repositories and other created files are not plased in a volume. I think  when you want to make a backup, you can use ```docker export containername > backup.tar```  and ```docker import backup.tar```.
+Repositories and other created files are not plased in a volume. I think  when you want to make a backup, you can use ```docker export containername > backup.tar```  and ```docker import backup.tar redmine```.
 
 I'm not an expert on RoR and redmine. So don't have a plan to prepare a way to upgrage Redmine in a container.
