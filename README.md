@@ -45,7 +45,6 @@ Including SVN & Git hosting!
 ## problem
 
 * subversion is able to be created at only creating a project
-* need a step for setup backlogs 
 * subversion and git repositories don't have authentication
 
 ## notes
