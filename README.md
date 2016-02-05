@@ -49,6 +49,15 @@ access http://dockerhost/
 * subversion is able to be created at only creating a project
 * subversion and git repositories don't have authentication
 
+## how to configure redmine
+
+If you use need to change settings(ex, mail), you an cwrite [[config/configuration.yml.example]] and push settings by belong command.
+
+```
+docker cp ./configuration.yml redmine:/var/lib/redmine/config/configuration.yml
+docker restart redmine
+```
+
 ## notes
 
 Repositories and other created files are not plased in a volume. I think  when you want to make a backup, you can use ```docker export containername > backup.tar```  and ```docker import backup.tar redmine```.
