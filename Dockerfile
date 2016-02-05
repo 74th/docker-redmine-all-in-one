@@ -14,7 +14,8 @@ RUN apt-get install -y \
 	imagemagick libmagick++-dev fonts-takao-pgothic \
 	subversion libapache2-svn \
 	git gitweb libssh2-1 libssh2-1-dev cmake libgpg-error-dev \
-	ruby2.2 ruby2.2-dev
+	ruby2.2 ruby2.2-dev \
+	libapache2-mod-auth-mysql libdigest-sha-perl libapache-dbi-perl libdbd-mysql-perl libauthen-simple-ldap-perl
 
 RUN gem install bundler
 RUN gem install passenger --no-rdoc --no-ri
@@ -59,6 +60,10 @@ RUN make rake
 ADD apache2/conf-available/redmine.conf /etc/apache2/conf-available/
 ADD apache2/mods-available/dav_svn.conf /etc/apache2/mods-available/
 ADD apache2/sites-available/000-default.conf /etc/apache2/sites-available/
+# use Redmine Auth
+RUN mkdir -p /etc/perl/Apache/Authn
+RUN cp /var/www/redmine/extra/svn/Redmine.pm /etc/perl/Apache/Authn/Redmine.pm
+
 RUN passenger-install-apache2-module --snippet >> /etc/apache2/conf-available/redmine.conf
 RUN a2enconf redmine
 RUN a2enmod cgi alias env
