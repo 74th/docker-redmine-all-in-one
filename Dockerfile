@@ -62,7 +62,7 @@ ADD apache2/mods-available/dav_svn.conf /etc/apache2/mods-available/
 ADD apache2/sites-available/000-default.conf /etc/apache2/sites-available/
 # use Redmine Auth
 RUN mkdir -p /etc/perl/Apache/Authn
-RUN cp /var/www/redmine/extra/svn/Redmine.pm /etc/perl/Apache/Authn/Redmine.pm
+RUN cp /var/lib/redmine/extra/svn/Redmine.pm /etc/perl/Apache/Authn/Redmine.pm
 
 RUN passenger-install-apache2-module --snippet >> /etc/apache2/conf-available/redmine.conf
 RUN a2enconf redmine
