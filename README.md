@@ -47,7 +47,7 @@ access http://dockerhost/
 ## problem
 
 * subversion is able to be created at only creating a project
-* subversion and git repositories don't have authentication
+* git repositories don't have authentication
 
 ## how to configure redmine
 
