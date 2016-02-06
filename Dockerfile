@@ -49,6 +49,9 @@ RUN git clone https://github.com/peclik/clipboard_image_paste.git /var/lib/redmi
 RUN git clone https://github.com/two-pack/redmine_xls_export.git /var/lib/redmine/plugins/redmine_xls_export
 RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", ">= 1.6.7.2"/g' /var/lib/redmine/plugins/redmine_xls_export/Gemfile
 
+# drafts
+RUN git clone https://github.com/jbbarth/redmine_drafts.git /var/lib/redmine/plugins/redmine_drafts
+
 # bundle and rake
 RUN bundle install --without development test --path vendor/bundle
 RUN bundle exec gem install mysql

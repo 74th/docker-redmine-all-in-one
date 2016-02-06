@@ -43,6 +43,7 @@ access http://dockerhost/
 * [Issue template](http://www.redmine.org/plugins/issue_templates) (GPLv2)
 * [Code Review](http://www.redmine.org/plugins/redmine_code_review) (GPVv2)
 * [Clipboard image paste](https://github.com/peclik/clipboard_image_paste)
+* [Drafts](https://github.com/jbbarth/redmine_drafts)
 
 ## problem
 
