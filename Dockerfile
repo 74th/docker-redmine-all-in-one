@@ -1,4 +1,4 @@
-FROM library/ubuntu:14.04.3
+FROM library/ubuntu:16.04
 MAINTAINER 74th<site@j74th.com>
 
 RUN apt-get update
