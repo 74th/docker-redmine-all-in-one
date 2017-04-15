@@ -10,12 +10,12 @@ RUN echo "mysql-server-5.5 mysql-server/root_password_again password redmine" | 
 RUN apt-get install -y \
 	build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev \
 	mysql-server-5.7 \
-	apache2-mpm-worker apache2-threaded-dev libapr1-dev libaprutil1-dev apache2-utils \
+	libapr1-dev libaprutil1-dev apache2-utils \
 	imagemagick libmagick++-dev fonts-takao-pgothic \
 	subversion libapache2-svn \
 	git gitweb libssh2-1 libssh2-1-dev cmake libgpg-error-dev \
 	ruby2.2 ruby2.2-dev zlib1g-dev \
-	libapache2-mod-auth-mysql libdigest-sha-perl libapache-dbi-perl libdbd-mysql-perl libauthen-simple-ldap-perl
+	libdigest-sha-perl libapache-dbi-perl libdbd-mysql-perl libauthen-simple-ldap-perl
 
 RUN gem install bundler
 RUN gem install passenger --no-rdoc --no-ri
