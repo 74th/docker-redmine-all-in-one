@@ -14,7 +14,7 @@ RUN apt-get install -y \
 	imagemagick libmagick++-dev fonts-takao-pgothic \
 	subversion libapache2-svn \
 	git gitweb libssh2-1 libssh2-1-dev cmake libgpg-error-dev \
-	ruby2.2 ruby2.2-dev \
+	ruby2.2 ruby2.2-dev zlib1g-dev \
 	libapache2-mod-auth-mysql libdigest-sha-perl libapache-dbi-perl libdbd-mysql-perl libauthen-simple-ldap-perl
 
 RUN gem install bundler
