@@ -5,8 +5,8 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN apt-add-repository ppa:brightbox/ruby-ng
 RUN apt-get update
-RUN echo "mysql-server-5.5 mysql-server/root_password password redmine" | debconf-set-selections
-RUN echo "mysql-server-5.5 mysql-server/root_password_again password redmine" | debconf-set-selections
+RUN echo "mysql-server-5.7 mysql-server/root_password password redmine" | debconf-set-selections
+RUN echo "mysql-server-5.7 mysql-server/root_password_again password redmine" | debconf-set-selections
 RUN apt-get install -y \
 	build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev \
 	mysql-server-5.7 \
@@ -14,7 +14,7 @@ RUN apt-get install -y \
 	imagemagick libmagick++-dev fonts-takao-pgothic \
 	subversion libapache2-svn \
 	git gitweb libssh2-1 libssh2-1-dev cmake libgpg-error-dev \
-	ruby2.2 ruby2.2-dev zlib1g-dev \
+	ruby2.3 ruby2.3-dev zlib1g-dev \
 	libdigest-sha-perl libapache-dbi-perl libdbd-mysql-perl libauthen-simple-ldap-perl
 
 RUN gem install bundler
