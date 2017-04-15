@@ -22,7 +22,7 @@ RUN gem install passenger --no-rdoc --no-ri
 RUN passenger-install-apache2-module --auto
 
 # Redmine
-RUN svn co http://svn.redmine.org/redmine/branches/3.2-stable/ /var/lib/redmine
+RUN svn co http://svn.redmine.org/redmine/branches/3.3-stable/ /var/lib/redmine
 ADD config/* /var/lib/redmine/config/
 WORKDIR /var/lib/redmine
 
