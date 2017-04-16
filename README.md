@@ -18,6 +18,14 @@ access http://dockerhost/
 * user: admin
 * password: admin
 
+### Repository URL
+
+* svn http://yourhost/svn/project_name
+	* caution: should create only when creating project
+	* svn repositories have redmine project authentication
+* git http://yourhost/git/repository_name
+	* caution: git repositories don't have authentication
+
 ### 日本語初期データ込み
 
 ```docker run -d --name redmine --restart=unless-stopped -p 80:80 74th/redmine-all-in-one:JP```
