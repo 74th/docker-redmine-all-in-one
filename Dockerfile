@@ -20,6 +20,7 @@ RUN apt-get install -y \
 
 RUN gem install bundler
 RUN gem install passenger --no-rdoc --no-ri
+RUN gem install tzinfo-data
 RUN passenger-install-apache2-module --auto
 
 # Redmine
