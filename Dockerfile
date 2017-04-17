@@ -8,7 +8,7 @@ RUN apt-get update
 RUN echo "mysql-server-5.7 mysql-server/root_password password redmine" | debconf-set-selections
 RUN echo "mysql-server-5.7 mysql-server/root_password_again password redmine" | debconf-set-selections
 RUN apt-get install -y \
-	sudo \
+	sudo tzdata \
 	build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev \
 	mysql-server-5.7 libmysqlclient-dev \
 	libapr1-dev libaprutil1-dev apache2-utils apache2-dev  \
@@ -20,7 +20,6 @@ RUN apt-get install -y \
 
 RUN gem install bundler
 RUN gem install passenger --no-rdoc --no-ri
-RUN gem install tzinfo-data
 RUN passenger-install-apache2-module --auto
 
 # Redmine
