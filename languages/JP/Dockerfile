@@ -3,3 +3,4 @@ MAINTAINER 74th<site@j74th.com>
 
 ADD Makefile /var/lib/redmine/
 RUN cd /var/lib/redmine;make rake
+RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
