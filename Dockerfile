@@ -33,7 +33,7 @@ RUN sed -i -e 's/gem "nokogiri".*/gem "nokogiri", "~> 1.6.8"/g' /var/lib/redmine
 RUN sed -i -e 's/gem "capybara", "~> 1"/gem "capybara", ">= 0"/g' /var/lib/redmine/plugins/redmine_backlogs/Gemfile
 
 # scm creator
-RUN git clone https://github.com/ZIMK/scm-creator.git /var/lib/redmine/plugins/redmine_scm
+RUN svn co http://svn.s-andy.com/scm-creator /var/lib/redmine/plugins/redmine_scm
 ADD scm-post-create.sh /var/lib/redmine/
 
 # issue template
