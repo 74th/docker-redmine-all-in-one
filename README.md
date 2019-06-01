@@ -1,3 +1,5 @@
+# WARNING: This has not been updated anymore.
+
 # redmine-all-in-one
 
 No need other steps to use Redmine with docker!
